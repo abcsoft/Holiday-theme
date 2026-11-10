@@ -1,0 +1,185 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-forest: #073D2B;
+    --color-forest-dark: #04261B;
+    --color-forest-light: #0d543d;
+    --color-christmas-red: #B51225;
+    --color-christmas-red-dark: #8F0D1C;
+    --color-ivory: #FAF7F0;
+    --color-ivory-subtle: #F3EFE6;
+    --color-gold: #D8AF62;
+    --color-gold-light: #F4DBA3;
+    --color-navy: #15233B;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #FAF7F0;
+    color: #15233B;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, .font-serif {
+    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  }
+}
+
+/* Custom holiday utilities */
+.bg-forest { background-color: var(--color-forest); }
+.bg-forest-dark { background-color: var(--color-forest-dark); }
+.bg-forest-light { background-color: var(--color-forest-light); }
+.text-forest { color: var(--color-forest); }
+.border-forest { border-color: var(--color-forest); }
+
+.bg-christmas-red { background-color: var(--color-christmas-red); }
+.bg-christmas-red-dark { background-color: var(--color-christmas-red-dark); }
+.text-christmas-red { color: var(--color-christmas-red); }
+.border-christmas-red { border-color: var(--color-christmas-red); }
+
+.bg-ivory { background-color: var(--color-ivory); }
+.bg-ivory-subtle { background-color: var(--color-ivory-subtle); }
+.text-ivory { color: var(--color-ivory); }
+.border-ivory { border-color: var(--color-ivory); }
+
+.bg-gold { background-color: var(--color-gold); }
+.bg-gold-light { background-color: var(--color-gold-light); }
+.text-gold { color: var(--color-gold); }
+.border-gold { border-color: var(--color-gold); }
+
+.bg-navy { background-color: var(--color-navy); }
+.text-navy { color: var(--color-navy); }
+
+/* Ambient festive glows */
+.glow-warm {
+  box-shadow: 0 0 45px -8px rgba(216, 175, 98, 0.22);
+}
+
+.glow-hearth {
+  box-shadow: 0 0 50px -10px rgba(181, 18, 37, 0.24);
+}
+
+/* Elegant card elevation and subtle 3D hover effects */
+.card-holiday {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, box-shadow;
+}
+
+.card-holiday:hover {
+  transform: translate3d(0, -4px, 0);
+  box-shadow: 0 14px 28px -10px rgba(7, 61, 43, 0.14), 0 6px 10px -3px rgba(7, 61, 43, 0.06);
+}
+
+/* Category card perspective 3D depth */
+.card-perspective {
+  perspective: 900px;
+}
+
+.card-perspective-inner {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+  will-change: transform, box-shadow;
+}
+
+.card-perspective-inner:hover {
+  transform: translate3d(0, -5px, 0) scale(1.02);
+  box-shadow: 0 18px 32px -12px rgba(7, 61, 43, 0.18), 0 6px 12px -4px rgba(216, 175, 98, 0.1);
+}
+
+/* Subtle gold shimmer for festive badges */
+@keyframes goldShimmer {
+  0%, 100% {
+    opacity: 0.92;
+    filter: drop-shadow(0 0 1px rgba(216, 175, 98, 0.3));
+  }
+  50% {
+    opacity: 1;
+    filter: drop-shadow(0 0 5px rgba(216, 175, 98, 0.7));
+  }
+}
+
+.shimmer-gold {
+  animation: goldShimmer 3s ease-in-out infinite;
+}
+
+/* Scroll reveal animations (compositor-only: opacity & transform) */
+.reveal-init {
+  opacity: 0;
+  transform: translate3d(0, 20px, 0);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Subtle snowflake particles with prefers-reduced-motion support */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes snowfall {
+    0% {
+      transform: translate3d(0, -10px, 0);
+      opacity: 0;
+    }
+    15% {
+      opacity: 0.75;
+    }
+    85% {
+      opacity: 0.75;
+    }
+    100% {
+      transform: translate3d(20px, 100vh, 0);
+      opacity: 0;
+    }
+  }
+
+  .snow-flake {
+    position: fixed;
+    top: -10px;
+    color: rgba(255, 255, 255, 0.85);
+    pointer-events: none;
+    z-index: 40;
+    animation: snowfall linear infinite;
+    will-change: transform, opacity;
+  }
+}
+
+/* Strict prefers-reduced-motion support */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal-init {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .snow-flake {
+    display: none !important;
+  }
+
+  .card-holiday:hover,
+  .card-perspective-inner:hover {
+    transform: none !important;
+  }
+}
+
+/* Content-visibility optimization for below-the-fold sections */
+#catalog, #campaign, #bundles, #trending, #reviews, #faq, #footer {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 600px;
+}
+
+/* Accessibility Focus Ring */
+:focus-visible {
+  outline: 2px solid #D8AF62;
+  outline-offset: 2px;
+}

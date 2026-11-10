@@ -1,0 +1,6 @@
+{
+  "name": "AitoBazar — Christmas & Holiday Storefront",
+  "description": "Premium US Holiday & Christmas shopping storefront featuring curated gifts, handcrafted ornaments, luxury winter goods, and seamless checkout.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
